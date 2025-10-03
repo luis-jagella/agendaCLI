@@ -29,8 +29,8 @@ public class Main {
                 case 2:
                     agenda.listarContatos();
                     System.out.print("Digite o código de qual destes quer excluir: ");
-
                     int sequenciaExclusao = sc.nextInt();
+                    sc.nextLine();
                     agenda.removerContato(sequenciaExclusao);
                     break;
                 case 3:
@@ -43,7 +43,7 @@ public class Main {
                     agenda.listarContatos();
                     break;
                 case 5:
-                    System.out.print("Deseja mesmo sair? Seus dados serão perdidos! (S/N): ");
+                    System.out.print("Deseja mesmo sair? Seus dados não salvos serão perdidos! (S/N): ");
                     String confirmacao = sc.nextLine().trim().toUpperCase();
 
                     if (confirmacao.equals("S")) {

@@ -1,6 +1,12 @@
 package org.example;
-import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Agenda {
 
@@ -8,10 +14,38 @@ public class Agenda {
 
     public Agenda() {
         contatos = new ArrayList<>();
+        carregarContatosDoArquivo();
+    }
+
+    private static final String ARQUIVO = "contatos.json";
+
+    public void salvarContatosNoArquivo() {
+        Gson gson = new Gson();
+        try (FileWriter writer = new FileWriter(ARQUIVO)) {
+            gson.toJson(contatos, writer);
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar contatos: " + e.getMessage());
+        }
+    }
+
+    public void carregarContatosDoArquivo() {
+        Gson gson = new Gson();
+        Type listaTipo = new TypeToken<List<Contato>>(){}.getType();
+
+        try (FileReader reader = new FileReader(ARQUIVO)) {
+            List<Contato> contatosDoArquivo = gson.fromJson(reader, listaTipo);
+            if (contatosDoArquivo != null) {
+                contatos.clear();
+                contatos.addAll(contatosDoArquivo);
+            }
+        } catch (IOException e) {
+            System.out.println("Nenhum arquivo de contatos encontrado. Começando com a lista vazia.");
+        }
     }
 
     public void adicionarContato(Contato c) {
         contatos.add(c);
+        salvarContatosNoArquivo();
     }
 
     public void listarContatos() {
@@ -45,12 +79,13 @@ public class Agenda {
 
     public void removerContato(int indice) {
         if (indice > 0 && indice <= contatos.size()) {
-            System.out.println("Contato " + indice + " removido com sucesso!" );
-            System.out.println();
+            contatos.remove(indice - 1);
+            salvarContatosNoArquivo();
+            System.out.println("Contato removido com sucesso!");
         } else {
             System.out.println("Nenhum contato com este código...");
-            System.out.println();
         }
+        System.out.println();
     }
 }
 
