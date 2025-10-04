@@ -36,13 +36,41 @@ public class Main {
                 case 3:
                     System.out.println("Digite o nome desejado: ");
                     String busca = sc.nextLine();
-
                     agenda.buscarContatoPorNome(busca);
                     break;
                 case 4:
                     agenda.listarContatos();
                     break;
                 case 5:
+                    agenda.listarContatos();
+                    System.out.print("Digite o código de qual destes quer editar: ");
+                    int sequenciaEdicao = sc.nextInt();
+                    sc.nextLine();
+
+                    Contato contatoExistente = agenda.getContato(sequenciaEdicao);
+
+                    if (contatoExistente != null) {
+                        System.out.println("Digite o novo nome: ");
+                        String novoNome = sc.nextLine();
+                        if (novoNome.isEmpty()) {
+                            novoNome = contatoExistente.getNome();
+                        }
+                        System.out.println("Digite o novo telefone: ");
+                        String novoTelefone = sc.nextLine();
+                        if (novoTelefone.isEmpty()) {
+                            novoTelefone = contatoExistente.getTelefone();
+                        }
+                        System.out.println("Digite o novo email: ");
+                        String novoEmail = sc.nextLine();
+                        if (novoEmail.isEmpty()) {
+                            novoEmail = contatoExistente.getEmail();
+                        }
+                        agenda.editarContato(sequenciaEdicao,novoNome,novoTelefone,novoEmail);
+                    } else {
+                        System.out.println("Código inválido!");
+                    }
+                    break;
+                case 6:
                     System.out.print("Deseja mesmo sair? Seus dados não salvos serão perdidos! (S/N): ");
                     String confirmacao = sc.nextLine().trim().toUpperCase();
 
@@ -65,7 +93,8 @@ public class Main {
         System.out.println("2- Remover contato");
         System.out.println("3- Buscar contato por nome");
         System.out.println("4- Listar todos os contatos");
-        System.out.println("5- Fechar");
+        System.out.println("5- Editar contatos");
+        System.out.println("6- Fechar");
         System.out.println("-------------------------------------");
     }
 }

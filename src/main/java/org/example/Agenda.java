@@ -31,7 +31,6 @@ public class Agenda {
     public void carregarContatosDoArquivo() {
         Gson gson = new Gson();
         Type listaTipo = new TypeToken<List<Contato>>(){}.getType();
-
         try (FileReader reader = new FileReader(ARQUIVO)) {
             List<Contato> contatosDoArquivo = gson.fromJson(reader, listaTipo);
             if (contatosDoArquivo != null) {
@@ -64,7 +63,6 @@ public class Agenda {
 
     public void buscarContatoPorNome(String nome) {
         boolean encontrado = false;
-
         for (Contato c : contatos) {
             if (c.getNome().equalsIgnoreCase(nome)) {
                 System.out.println("Contato econtrado: " + c);
@@ -86,6 +84,26 @@ public class Agenda {
             System.out.println("Nenhum contato com este código...");
         }
         System.out.println();
+    }
+
+    public void editarContato(int indice, String novoNome, String novoTelefone, String novoEmail) {
+        if (indice > 0 && indice <= contatos.size()) {
+            Contato c = contatos.get(indice - 1);
+            c.setNome(novoNome);
+            c.setTelefone(novoTelefone);
+            c.setEmail(novoEmail);
+            salvarContatosNoArquivo();
+            System.out.println("Contato atualizado!");
+        } else {
+            System.out.println("Nenhum contato com este código!");
+        }
+    }
+
+    public Contato getContato(int indice) {
+        if (indice > 0 && indice <= contatos.size()) {
+            return contatos.get(indice - 1);
+        }
+        return null;
     }
 }
 
