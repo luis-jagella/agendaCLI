@@ -1,7 +1,7 @@
 # Agenda CLI
 
 Um projeto simples em Java para gerenciar contatos via linha de comando.
-Permite adicionar, remover, listar e buscar contatos, reforçando conceitos de **POO**, coleções (`List`) e tratamento de entrada do usuário.
+Permite adicionar, remover, listar, buscar contatos e editar os dados já existentes, reforçando conceitos de **POO**, coleções (`List`) e tratamento de entrada do usuário.
 
 ---
 
@@ -11,6 +11,7 @@ Permite adicionar, remover, listar e buscar contatos, reforçando conceitos de *
 - Remover contato pelo código da lista
 - Listar todos os contatos
 - Buscar contato pelo nome
+- Edição de contatos já existentes
 - Confirmação antes de sair do programa
 
 ---
@@ -27,13 +28,13 @@ Permite adicionar, remover, listar e buscar contatos, reforçando conceitos de *
 ```
 agendaCLI/
 ├── src/
-│   ├── main/java/org/example/agenda/   # Código-fonte
+│   ├── main/java/org/example/agenda/
 │   │   ├── Main.java
 │   │   ├── Agenda.java
 │   │   └── Contato.java
-│   └── test/java/org/example/agenda/   # Testes unitários (opcional)
-├── pom.xml                             # Configuração do Maven
-└── .gitignore                          # Ignora target/, IDE e arquivos temporários
+│   └── test/java/org/example/agenda/
+├── pom.xml
+└── .gitignore
 ```
 
 ---
@@ -62,7 +63,8 @@ mvn exec:java -Dexec.mainClass="org.example.agenda.Main"
 2- Remover contato
 3- Buscar contato por nome
 4- Listar todos os contatos
-5- Fechar
+5- Editar contatos
+6- Fechar
 -------------------------------------
 ```
 
@@ -70,9 +72,7 @@ mvn exec:java -Dexec.mainClass="org.example.agenda.Main"
 
 ## Observações
 
-- Ao fechar o programa, **os dados não são salvos**. Todos os contatos serão perdidos.
-- As entradas são validadas para evitar erros no menu e na seleção de contatos.
-- Pode ser facilmente expandido para salvar os dados em arquivo ou banco de dados.
+- Atualmente consegui salvar todos os dados dos contatos em um .json, deixando aberta uma grande chance de expandir futuramente.
 
 ---
 
